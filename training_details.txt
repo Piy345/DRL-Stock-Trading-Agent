@@ -1,0 +1,49 @@
+================================================================================
+DRL ALGORITHM TRAINING SPECIFICATIONS & HYPERPARAMETERS
+================================================================================
+
+This document outlines the detailed configuration and parameters used for 
+training the Deep Reinforcement Learning agents on the AAPL trading data.
+
+--------------------------------------------------------------------------------
+1. GLOBAL TRAINING SCOPE
+--------------------------------------------------------------------------------
+- Environment Setups: RSI Environment, MACD Environment, Ensemble Environment
+- Training Length: 40 Epochs (passes over the training dataset)
+- Total Timesteps per model: ~89,280 timesteps (40 * size of training data)
+- Observation Space: Historical prices, volumes, and technical indicators.
+- Action Space: Discrete [0: BUY, 1: SELL, 2: HOLD]
+
+--------------------------------------------------------------------------------
+2. PPO (Proximal Policy Optimization)
+--------------------------------------------------------------------------------
+Trained on: RSI, MACD, and Ensemble Environments
+- Architecture: Multi-Layer Perceptron (MlpPolicy)
+- Learning Rate: 0.0003 (3e-4)
+- N-Steps (Steps run per update): 2048
+- Batch Size: 64
+- Epochs (Optimization epochs per update): 10
+- Gamma (Discount factor): 0.99 (focuses on long-term rewards)
+- Clip Range (Surrogate clipping): 0.2
+
+--------------------------------------------------------------------------------
+3. DQN (Deep Q-Network)
+--------------------------------------------------------------------------------
+Trained on: RSI and MACD Environments
+- Architecture: Multi-Layer Perceptron (MlpPolicy)
+- Learning Rate: 0.001 (1e-3)
+- Replay Buffer Size: 100,000 transitions
+- Batch Size: 64
+- Gamma (Discount factor): 0.99
+- Tau (Target network update rate): 1.0 (Hard update)
+
+--------------------------------------------------------------------------------
+4. A2C (Advantage Actor Critic)
+--------------------------------------------------------------------------------
+Trained on: RSI and MACD Environments
+- Architecture: Multi-Layer Perceptron (MlpPolicy)
+- Learning Rate: 0.0007 (7e-4)
+- N-Steps (Steps run per update): 5
+- Gamma (Discount factor): 0.99
+- Entropy Coefficient (Exploration bonus): 0.01
+- Value Function Coefficient: 0.25
